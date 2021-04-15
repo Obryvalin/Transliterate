@@ -5,8 +5,9 @@ const PORT = 80;
 webServer = express();
 //===================================================
 
-webServer.get('*',(request,response)=>{
-response=request.body.toJSON();
+webServer.get('/express',(request,response)=>{
+    console.log("Request from IP:"+request.ip);
+response.send(request.query);
 });
 
 //===================================================
