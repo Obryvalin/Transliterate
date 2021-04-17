@@ -1,32 +1,39 @@
 <html>
-    <head>
+  <head> </head>
+  <body>
+    <main>
+      <form id="form">
+        <input
+          type="text"
+          id="string"
+          placeholder="Строка"
+          autocomplete="off"
+        />
+        <input id="result" autocomplete="off" />
 
-    </head>
-    <body>
-        <main>
-            <form id="form">
-                <input id='string' onChange="" placeholder="Строка" autocomplete="off"/>
-                <input id='result' autocomplete="off" />
-                <button onClick=''>Выполнить</button>
-                <button type="reset">Сброс</button>
-            </form>
-        </main>
-        <script defer>
-            document.querySelector("#form").addEventListener('submit',(e)=>{
-                e.preventDefault();
-                fetchData();
-            })
-            const fetchData = ()=>{
-                let string = document.querySelector("#string").value;
-              
-                fetch('/transliterate?string='+string).then((response)=>{
-                    response.text().then((res)=>{
-                        console.log('res:\t'+res);
-                        document.querySelector("#result").value = res;
-                    })
-                    
-                })
-            }
-        </script>
-    </body>
+        <button type="reset">Сброс</button>
+      </form>
+    </main>
+    <script defer>  
+      var delay;
+
+      document.querySelector("#string").addEventListener("input", (e) => {
+        e.preventDefault();
+        fetchData();
+      });
+      const fetchData = () => {
+        clearTimeout(delay);
+        delay = setTimeout(() => {
+          let string = document.querySelector("#string").value;
+
+          fetch("/transliterate?string=" + string).then((response) => {
+            response.text().then((res) => {
+              console.log("res:\t" + res);
+              document.querySelector("#result").value = res;
+            });
+          });
+        },500);
+      };
+    </script>
+  </body>
 </html>

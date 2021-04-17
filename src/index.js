@@ -7,8 +7,7 @@ let webServer = express();
 //===================================================
 
 webServer.get('/transliterate',(request,response)=>{
-    console.log("Request from IP:"+request.ip);
-    console.log(request.query.string);
+    console.log("Request from IP:"+request.ip +"\t\t"+request.query.string);
     if (request.query.string)
     {
     response.send(transliterate.transliterate(request.query.string));
