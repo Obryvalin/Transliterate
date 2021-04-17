@@ -1,15 +1,23 @@
 const express = require("express");
+const path = require("path");
+const transliterate = require("./transliterate.js");
 
 const PORT = 80;
-
-webServer = express();
+let webServer = express();
 //===================================================
 
-webServer.get('/express',(request,response)=>{
+webServer.get('/transliterate',(request,response)=>{
     console.log("Request from IP:"+request.ip);
-response.send(request.query);
-});
+    console.log(request.query.string);
+    if (request.query.string)
+    {
+    response.send(transliterate.transliterate(request.query.string));
+    }
 
+});
+webServer.get('*',(request,response)=>{
+    response.sendFile(path.join(__dirname,'index.html'));
+})
 //===================================================
 const launch = (port) => {
     webServer.listen(port, ()=>{
